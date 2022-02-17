@@ -1,0 +1,31 @@
+/* tslint:disable */
+/* eslint-disable */
+
+import React, { FunctionComponent } from 'react';
+import { ViewProps } from 'react-native';
+import { Svg, GProps, Path } from 'react-native-svg';
+import { getIconColor } from './helper';
+
+interface Props extends GProps, ViewProps {
+  size?: number;
+  color?: string | string[];
+}
+
+let IconKaishifankui: FunctionComponent<Props> = ({ size, color, ...rest }) => {
+  return (
+    <Svg viewBox="0 0 1024 1024" width={size} height={size} {...rest}>
+      <Path
+        d="M633.685333 69.233778a35.555556 35.555556 0 1 1 0 71.224889H135.224889a35.783111 35.783111 0 0 0-35.555556 35.612444V888.035556c0 19.740444 16.042667 35.612444 35.555556 35.612444h640.853333c19.740444 0 35.612444-15.928889 35.612445-35.612444V318.293333a35.555556 35.555556 0 1 1 71.224889 0v569.571556a106.837333 106.837333 0 0 1-106.609778 107.008H135.224889A106.837333 106.837333 0 0 1 28.444444 888.092444V176.071111c0-58.993778 47.843556-106.837333 106.780445-106.837333h498.460444z m0 498.232889c19.683556 0 35.612444 15.928889 35.612445 35.612444 0 19.740444-15.928889 35.612444-35.441778 35.612445H206.506667a35.555556 35.555556 0 1 1 0-71.224889h427.235555zM920.860444 0c9.500444 0 18.545778 3.754667 25.201778 10.467556a35.441778 35.441778 0 0 1 0 50.346666L592.156444 414.72a35.498667 35.498667 0 0 1-50.346666-0.170667 35.441778 35.441778 0 0 1 0-50.346666L895.715556 10.467556A35.441778 35.441778 0 0 1 920.860444 0zM420.067556 353.848889a35.555556 35.555556 0 1 1 0 71.224889H206.449778a35.555556 35.555556 0 1 1 0-71.224889h213.617778z"
+        fill={getIconColor(color, 0, '#FFFFFF')}
+      />
+    </Svg>
+  );
+};
+
+IconKaishifankui.defaultProps = {
+  size: 18,
+};
+
+IconKaishifankui = React.memo ? React.memo(IconKaishifankui) : IconKaishifankui;
+
+export default IconKaishifankui;
