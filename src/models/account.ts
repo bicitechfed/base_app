@@ -1,5 +1,5 @@
 import {Dispatch} from '../store';
-import {fetchLogin} from '@/apis/account';
+import {fetchLogin, fetchAccountInfo} from '@/apis/account';
 
 export const delay = (ms: number) =>
   new Promise(resolve => setTimeout(resolve, ms));
@@ -8,6 +8,7 @@ export type userState = {
   account: string;
   password: string;
   token?: string;
+  userInfo?: any;
 };
 
 export const account = {
@@ -15,8 +16,15 @@ export const account = {
     account: '',
     password: '',
     token: '',
+    userInfo: {},
   },
   reducers: {
+    setUserInfo: (state: userState, userInfo: any)=>{
+      return {
+        ...state,
+        userInfo,
+      };
+    },
     login: (state: userState, token: string) => {
       return {
         ...state,
@@ -28,15 +36,19 @@ export const account = {
         account: '',
         password: '',
         token: '',
+        userInfo: {},
       };
     },
   },
   effects: (dispatch: Dispatch) => ({
     async loginAsync(userInfo: userState) {
-      console.log('loginAsync', userInfo);
       const token = await fetchLogin(userInfo);
-      console.log('token>>>', token);
       dispatch.account.login(token);
+      dispatch.account.getAccountInfo();
+    },
+    async getAccountInfo(){
+      const userInfo = await fetchAccountInfo({menuType: 3, account: 'admin'});
+      dispatch.account.setUserInfo(userInfo);
     },
   }),
 };

@@ -10,8 +10,11 @@ import HomeScreen from '../pages/index';
 import LoginPage from '../pages/Login';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store';
+import {modalRoutes, rootRoutes} from './routes';
 
 const MainStack = createNativeStackNavigator();
+
+const PersonalStack = createNativeStackNavigator();
 
 const withDarkNav = (Component: React.ElementType) => {
   const ComponentWithDarkNav = (props: any) => {
@@ -53,19 +56,62 @@ export interface MainStackParamList extends Record<string, object | undefined> {
   Tutorial: undefined;
 }
 
-const HomeScreenWithNavBar = withLightNav(HomeScreen);
+const HomeScreenWithNavBar = withDarkNav(HomeScreen);
 const LoginScreenWithNavBar = withDarkNav(LoginPage);
 
 const DEFAULT_SCREEN_OPTIONS: NativeStackNavigationOptions = {
   presentation: 'card',
   headerShown: false,
 };
+//  "modal" | "transparentModal" | "containedModal" | "containedTransparentModal" | "fullScreenModal" | "formSheet" | "card" | undefined
 
 const RootNavigator = () => {
   return (
-    <MainStack.Navigator
-      screenOptions={DEFAULT_SCREEN_OPTIONS}>
-      <MainStack.Screen name="Home" component={HomeScreenWithNavBar} />
+    <MainStack.Navigator screenOptions={DEFAULT_SCREEN_OPTIONS}>
+      <MainStack.Group>
+        {rootRoutes.map(route => {
+          const {
+            title,
+            headerTitle = '',
+            name,
+            component,
+            headerLeft,
+            headerRight,
+            headerShown = true,
+          } = route;
+          const stackOptions = {
+            title,
+            headerTitle: headerTitle || title,
+            headerLeft,
+            headerRight,
+            headerShown,
+          };
+          const stackProps = {key: name, name, component, options: stackOptions};
+          return <MainStack.Screen {...stackProps} />;
+        })}
+      </MainStack.Group>
+      <MainStack.Group  screenOptions={{ presentation: 'modal' }}>
+      {modalRoutes.map(route => {
+          const {
+            title,
+            headerTitle = '',
+            name,
+            component,
+            headerLeft,
+            headerRight,
+            headerShown = true,
+          } = route;
+          const stackOptions = {
+            title,
+            headerTitle: headerTitle || title,
+            headerLeft,
+            headerRight,
+            headerShown,
+          };
+          const stackProps = {key: name, name, component, options: stackOptions};
+          return <MainStack.Screen {...stackProps} />;
+        })}
+      </MainStack.Group>
     </MainStack.Navigator>
   );
 };

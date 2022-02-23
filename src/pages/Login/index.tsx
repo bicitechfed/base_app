@@ -11,12 +11,15 @@ import {
   HStack,
   Center,
   ScrollView,
+  Icon,
+  Select,
 } from 'native-base';
 import {TextInput} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch, RootState} from '../../store';
 import {useForm, Controller} from 'react-hook-form';
 import {tranRSA} from '@/utils/common';
+import IconFont from '../../icons';
 
 export const LoginPage = ({navigation}) => {
   const {account, global, model, effect} = useSelector((state: RootState) => ({
@@ -37,7 +40,7 @@ export const LoginPage = ({navigation}) => {
   } = useForm({
     defaultValues: {
       account: 'admin',
-      password: '123',
+      password: '123456',
     },
   });
 
@@ -87,9 +90,14 @@ export const LoginPage = ({navigation}) => {
               control={control}
               render={({field: {onChange, onBlur, value}}) => (
                 <Input
+                  w={{base: '100%', md: '25%'}}
+                  InputLeftElement={<Icon as={<IconFont name="icon-guanbi" color="red" />}/>}
+                  placeholder="Name"
                   onBlur={onBlur}
                   onChangeText={value => onChange(value)}
                   value={value}
+                  isInvalid={true}
+                  isDisabled={false}
                   {...register('account', {
                     maxLength: {value: 12, message: '最大长度2'},
                   })}
@@ -106,11 +114,20 @@ export const LoginPage = ({navigation}) => {
                   onBlur={onBlur}
                   onChangeText={value => onChange(value)}
                   value={value}
+                  InputLeftElement={<Icon as={<IconFont name="icon-guanbi" color="red" />}/>}
+                  InputRightElement={<Icon as={<IconFont name="icon-guanbi" color="red" />}/>}
                 />
               )}
               name="password"
               rules={{required: true}}
             />
+            <Select minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" mt={1}>
+              <Select.Item label="UX Research" value="ux" />
+              <Select.Item label="Web Development" value="web" />
+              <Select.Item label="Cross Platform Development" value="cross" />
+              <Select.Item label="UI Designing" value="ui" />
+              <Select.Item label="Backend Development" value="backend" />
+            </Select>
             <Button
               mt="2"
               colorScheme="indigo"

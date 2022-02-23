@@ -12,6 +12,7 @@
     "build:beta": "cd android&&./gradlew assembleBetaRelease&&cd ../",
     "build:pro": "cd android&& cross-env ENVFILE=.env.production ./gradlew assembleProRelease&&cd ../",
     "test": "jest",
+    "icon": "npx iconfont-rn",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "react": "17.0.2",
     "react-hook-form": "^7.27.0",
     "react-native": "0.66.4",
+    "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^2.1.0",
     "react-native-reanimated": "^2.3.1",
     "react-native-root-siblings": "^4.1.1",
@@ -40,6 +42,7 @@
     "react-native-screens": "^3.10.1",
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.1.1",
+    "react-native-vector-icons": "^9.1.0",
     "react-redux": "^7.2.6",
     "redux-logger": "^3.0.6",
     "yup": "^0.32.11"
