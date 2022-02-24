@@ -2,10 +2,24 @@ import React from 'react';
 import Home from '@/pages/';
 import IconFont from '../icons';
 import {View} from 'react-native';
+import {Pressable} from 'native-base';
 
 import DataRealTimeMonitor from '../pages/modules/DataMonitoring';
 import PointInspection from '../pages/modules/PointInspection';
 import PersonalCenter from '../pages/system/PersonalCenter';
+import { useNavigation } from '@react-navigation/native';
+
+const HeaderLeftBack = () => {
+  const navigation = useNavigation();
+  const handlePress = () => {
+    navigation.goBack();
+  };
+  return (
+    <Pressable onPress={handlePress}>
+      <IconFont name="icon-arrow-left" color="#fff" />
+    </Pressable>
+  );
+};
 
 /**导出路由信息**/
 export const routes = [
@@ -43,7 +57,7 @@ export const dataRealTimeRoutes = [
     title: '数据实时监控',
     component: DataRealTimeMonitor,
     show: false,
-    headerLeft: () => <View />,
+    headerLeft: () => <HeaderLeftBack/>,
     headerRight: () => <View />,
   },
 ];

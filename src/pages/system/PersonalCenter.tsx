@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, FlatList, Button} from 'native-base';
 import {
   Pressable,
@@ -17,8 +17,10 @@ import {
 import IconFont from '../../icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {Dispatch, RootState} from '../../store';
+import { useNavigation } from '@react-navigation/native';
 
-const HeaderLeftBack = ({navigation}) => {
+const HeaderLeftBack = () => {
+  const navigation = useNavigation();
   const handlePress = () => {
     navigation.goBack();
   };
@@ -30,21 +32,23 @@ const HeaderLeftBack = ({navigation}) => {
 };
 
 const PersonalCenter = ({navigation}) => {
-  navigation.setOptions({
-    headerRight: () => {
-      return <IconFont name="icon-danxuan-weixuanzhong" />;
-    },
-    headerLeft: () => {
-      return <HeaderLeftBack navigation={navigation} />;
-    },
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  });
+  useEffect(()=>{
+    navigation.setOptions({
+      headerRight: () => {
+        return <IconFont name="icon-danxuan-weixuanzhong" />;
+      },
+      headerLeft: () => {
+        return <HeaderLeftBack navigation={navigation} />;
+      },
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    });
+  },[navigation])
 
   const {account, global, model, effect} = useSelector((state: RootState) => ({
     account: state.account,

@@ -19,6 +19,8 @@ import {
 import Tips from 'react-native-root-toast-tips';
 import IconFont from '../icons';
 
+import {dataRealTimeRoutes} from '../navigation/routes'
+
 const HomeHeaderRight = ({navigation})=>{
   const openPersonalCenter = ()=>{
     navigation.navigate('PersonalCenter')
@@ -34,18 +36,20 @@ const HomeHeaderRight = ({navigation})=>{
 
 function MainScreen({navigation}: any) {
   console.log('navigation', navigation);
-  navigation.setOptions({
-    headerRight: () => {
-      return <HomeHeaderRight navigation={navigation}/>;
-    },
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  });
+  React.useEffect(()=>{
+    navigation.setOptions({
+      headerRight: () => {
+        return <HomeHeaderRight navigation={navigation}/>;
+      },
+      headerStyle: {
+        backgroundColor: '#f4511e',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    });
+  },[navigation])
   const {sharks, global, model, effect} = useSelector((state: RootState) => ({
     sharks: state.sharks.count,
     global: state.loading.global,
@@ -91,9 +95,9 @@ function MainScreen({navigation}: any) {
               设备信息
             </Heading>
             <Stack direction="row" mb="2.5" mt="1.5" space="3" flexWrap="wrap">
-              {[1, 2, 3, 4, 5, 6, 7, , 8, 9].map(item => {
+              {dataRealTimeRoutes.map(item => {
                 return (
-                  <Pressable onPress={() => console.log("I'm Pressed")}>
+                  <Pressable onPress={() => navigation.navigate(item.name)} key={item.name}>
                     {({isPressed}) => {
                       return (
                         <Center

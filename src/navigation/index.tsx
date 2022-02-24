@@ -85,6 +85,9 @@ const RootNavigator = () => {
             headerLeft,
             headerRight,
             headerShown,
+            headerStyle: {
+              backgroundColor: '#f4511e',
+            }
           };
           const stackProps = {key: name, name, component, options: stackOptions};
           return <MainStack.Screen {...stackProps} />;
@@ -107,6 +110,9 @@ const RootNavigator = () => {
             headerLeft,
             headerRight,
             headerShown,
+            headerStyle: {
+              backgroundColor: '#f4511e',
+            }
           };
           const stackProps = {key: name, name, component, options: stackOptions};
           return <MainStack.Screen {...stackProps} />;

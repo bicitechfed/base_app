@@ -88,7 +88,7 @@ function App() {
               AsyncStorage.setItem(PERSISTENCE_KEY, JSON.stringify(state))
             }>
             <RootApp />
-            <StatusBar backgroundColor="transparent" translucent />
+            <StatusBar backgroundColor="red" translucent />
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>
